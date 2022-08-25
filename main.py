@@ -1,58 +1,27 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
+from PIL import Image
+import streamlit.components.v1 as components
+import codecs
 
+st.set_page_config(
+     page_title="Adventure time",
+     page_icon="🏠",
+     layout="wide",
+     initial_sidebar_state="expanded",
+     menu_items={
+         'Get Help': 'https://www.extremelycoolapp.com/help',
+         'Report a bug': "https://www.extremelycoolapp.com/bug",
+         'About': "# This is a header. This is an *extremely* cool app!"
+     }
+ )
 
+cover = Image.open("images/cover.jpg")
+st.image(cover, use_column_width=True)
+st.write("""
+# My awesome Dashboard
+##     With Jake the Dog and Finn the Human 🚀
+""")
+f=codecs.open("data/adventure-youtube.html", 'r')
+pedro = f.read()
 
-st.write("Hello world!")
-
-st.markdown("This is **bold** and this is _italics_")
-st.title('My first title')
-st.header("This is a header")
-
-
-df = pd.DataFrame({"A": [1, 2, 3], "B": [4, 5, 6]})
-
-st.dataframe(df)
-
-chart_data = pd.DataFrame(
-     np.random.randn(20, 3),
-     columns=['a', 'b', 'c'])
-
-st.line_chart(chart_data)
-
-
-# Add histogram data
-x1 = np.random.randn(200) - 2
-x2 = np.random.randn(200)
-x3 = np.random.randn(200) + 2
-
-# Group data together
-hist_data = [x1, x2, x3]
-
-group_labels = ['Group 1', 'Group 2', 'Group 3']
-
-
-
-df2 = pd.DataFrame(
-     np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-     columns=['lat', 'lon'])
-
-st.map(df2)
-
-if st.button("This is a button"):
-    st.write("You cliked on the button")
-
-#st.download_button()
-
-number = st.slider("my slider", 0, 100)
-st.write(f"You selected {number}")
-
-filter = st.selectbox("Please choose an option", [1, 2, 3])
-my_text_input = st.text_input("Please inputttt")
-
-st.checkbox("asas", "1")
-
-uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
-st.write(uploaded_files)
-#st.dataframe(uploaded_files.name)
+components.html(pedro,height=550,scrolling=True)
